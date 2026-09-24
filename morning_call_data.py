@@ -1,4 +1,17 @@
+"""
+morning_call_data.py
+Coleta cotações do painel Cortex Consulting Morning Call via Yahoo Finance
+e CoinGecko, com fallback e tratamento individual de erros.
 
+Uso:
+    python morning_call_data.py
+
+Saída:
+    morning_call_data.json
+"""
+
+import json
+import time
 from datetime import datetime, timezone
 import urllib.request
 import urllib.error
