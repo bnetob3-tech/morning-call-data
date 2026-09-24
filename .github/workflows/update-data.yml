@@ -1,0 +1,30 @@
+name: Atualizar dados Morning Call
+
+on:
+  schedule:
+    # Roda a cada 15 minutos, das 12h às 21h UTC (09h-18h em São Paulo)
+    - cron: '*/15 12-21 * * 1-5'
+  workflow_dispatch: {}  # permite rodar manualmente pelo botão "Run workflow"
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Executar script de coleta
+        run: python morning_call_data.py
+
+      - name: Commitar resultado
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add morning_call_data.json
+          git diff --staged --quiet || git commit -m "Atualiza cotações [automático]"
+          git push
