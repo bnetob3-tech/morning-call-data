@@ -70,6 +70,7 @@ USER_AGENT = "Mozilla/5.0 (compatible; MorningCallBot/1.0)"
 
 def fetch_yahoo(ticker: str, retries: int = 2, timeout: int = 8):
     """Busca preço e variação diária de um ticker no Yahoo Finance."""
+    import json
     url = (
         f"https://query1.finance.yahoo.com/v8/finance/chart/{ticker}"
         f"?interval=1d&range=2d"
@@ -112,6 +113,7 @@ def fetch_yahoo(ticker: str, retries: int = 2, timeout: int = 8):
 
 def fetch_coingecko_batch(ids: list, retries: int = 2, timeout: int = 8):
     """Busca preço e variação 24h de várias criptos em uma única chamada."""
+    import json
     ids_param = ",".join(ids)
     url = (
         "https://api.coingecko.com/api/v3/simple/price"
